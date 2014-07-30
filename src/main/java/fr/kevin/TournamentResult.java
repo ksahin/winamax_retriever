@@ -1,17 +1,28 @@
 package fr.kevin;
 
+import com.sun.corba.se.spi.ior.ObjectId;
+
 public class TournamentResult {
 	
+
 	private int buyin;
 	private String name;
 	private int id;
 	private String time;//a voir, pas top une string...
 	private Double amountWon;
-	private int playerId;
+	private String pseudoPlayer;
 	private int tournamentId;
 	private int numberOfPlayer;
 	private int rank;
 	
+
+
+	public String getPseudoPlayer() {
+		return pseudoPlayer;
+	}
+	public void setPseudoPlayer(String pseudoPlayer) {
+		this.pseudoPlayer = pseudoPlayer;
+	}
 	public int getTournamentId() {
 		return tournamentId;
 	}
@@ -59,11 +70,5 @@ public class TournamentResult {
 	}
 	public void setAmountWon(Double amountWon) {
 		this.amountWon = amountWon;
-	}
-	public int getPlayerId() {
-		return playerId;
-	}
-	public void setPlayerId(int playerId) {
-		this.playerId = playerId;
 	}
 }

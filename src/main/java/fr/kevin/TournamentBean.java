@@ -1,6 +1,15 @@
 package fr.kevin;
 
+import com.sun.corba.se.spi.ior.ObjectId;
+
 public class TournamentBean {
+	private int nbJoueur;
+	
+	private int buyin;
+	private String name;
+	private ObjectId id;
+	private String time;//a voir, pas top une string...
+	
 	public int getBuyin() {
 		return buyin;
 	}
@@ -12,12 +21,6 @@ public class TournamentBean {
 	}
 	public void setName(String name) {
 		this.name = name;
-	}
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
 	}
 	public String getTime() {
 		return time;
@@ -31,9 +34,10 @@ public class TournamentBean {
 	public void setNbJoueur(int nbJoueur) {
 		this.nbJoueur = nbJoueur;
 	}
-	private int nbJoueur;
-	private int buyin;
-	private String name;
-	private int id;
-	private String time;//a voir, pas top une string...
+	public ObjectId getId() {
+		return id;
+	}
+	public void setId(ObjectId id) {
+		this.id = id;
+	}
 }
