@@ -1,7 +1,7 @@
 package fr.kevin;
 
 
-public class TournamentResult {
+public class TournamentResultBean {
 
 	private int id;
 	private Double amountWon;

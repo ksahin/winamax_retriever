@@ -10,16 +10,16 @@ import com.gargoylesoftware.htmlunit.html.HtmlTableRow;
 
 public class TournamentResultRetriever {
 	
-	public static List<TournamentResult> getTournementResult(int tournamentId) throws Exception{
+	public static List<TournamentResultBean> getTournementResult(int tournamentId) throws Exception{
 		WebClient client = new WebClient();
 		client.getOptions().setJavaScriptEnabled(false);
 		client.getOptions().setCssEnabled(false);
 		HtmlPage page = client.getPage("https://www.winamax.fr/poker/tournament.php?ID="+tournamentId);
 		HtmlTable table = page.getFirstByXPath("//table[@class='ranking']");
-		List<TournamentResult> resultList = new ArrayList<TournamentResult>();
+		List<TournamentResultBean> resultList = new ArrayList<TournamentResultBean>();
 		for(HtmlTableRow row : table.getBodies().get(0).getRows()){
 			//Ici il faudra check que le player existe en base ou pas
-			TournamentResult result = new TournamentResult();
+			TournamentResultBean result = new TournamentResultBean();
 			result.setPseudoPlayer(row.getChildNodes().get(1).asText());
 			result.setTournamentId(tournamentId);
 			result.setAmountWon(Double.valueOf(fr.kevin.Utils.cleanAmount(row.getChildNodes().get(2).asText())));
@@ -30,8 +30,8 @@ public class TournamentResultRetriever {
 	}
 	public static void main(String args[]) throws Exception {
 
-		List<TournamentResult> listResult = getTournementResult(82915467);
-		for(TournamentResult res : listResult){
+		List<TournamentResultBean> listResult = getTournementResult(82915467);
+		for(TournamentResultBean res : listResult){
 			System.out.println("Id du tournois : "+ res.getTournamentId());
 			System.out.println("Pseudo joueur : "+ res.getPseudoPlayer());
 			System.out.println("Gain  "+ res.getAmountWon());

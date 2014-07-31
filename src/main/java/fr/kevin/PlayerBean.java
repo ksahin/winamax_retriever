@@ -8,7 +8,7 @@ public class PlayerBean {
 	//dans un premier temps l'id des joueurs sera leur pseudo, il me semble que c'est unique
 	private String pseudo;
 	private Double amount;
-	private ArrayList<TournamentResult> listTournamentResult;
+	private ArrayList<TournamentResultBean> listTournamentResult;
 	
 	public String getPseudo() {
 		return pseudo;
@@ -16,11 +16,11 @@ public class PlayerBean {
 	public void setPseudo(String pseudo) {
 		this.pseudo = pseudo;
 	}
-	public ArrayList<TournamentResult> getListTournamentResult() {
+	public ArrayList<TournamentResultBean> getListTournamentResult() {
 		return listTournamentResult;
 	}
 	public void setListTournamentResult(
-			ArrayList<TournamentResult> listTournamentResult) {
+			ArrayList<TournamentResultBean> listTournamentResult) {
 		this.listTournamentResult = listTournamentResult;
 	}
 	public Double getAmount() {
