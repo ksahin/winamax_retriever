@@ -8,6 +8,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlTable;
 import com.gargoylesoftware.htmlunit.html.HtmlTableRow;
 
+import fr.kevin.bean.TournamentResultBean;
+
 public class TournamentResultRetriever {
 	
 	public static List<TournamentResultBean> getTournementResult(int tournamentId) throws Exception{
@@ -18,7 +20,6 @@ public class TournamentResultRetriever {
 		HtmlTable table = page.getFirstByXPath("//table[@class='ranking']");
 		List<TournamentResultBean> resultList = new ArrayList<TournamentResultBean>();
 		for(HtmlTableRow row : table.getBodies().get(0).getRows()){
-			//Ici il faudra check que le player existe en base ou pas
 			TournamentResultBean result = new TournamentResultBean();
 			result.setPseudoPlayer(row.getChildNodes().get(1).asText());
 			result.setTournamentId(tournamentId);

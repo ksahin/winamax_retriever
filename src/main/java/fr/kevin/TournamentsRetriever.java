@@ -1,11 +1,15 @@
 package fr.kevin;
 
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+
 import com.gargoylesoftware.htmlunit.HttpMethod;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.WebRequest;
@@ -13,9 +17,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.util.NameValuePair;
 
 public class TournamentsRetriever {
-
-	public static void main(String args[]) throws Exception {
-
+	public static JSONObject getTournamentsList(String unixTimeStamp) throws Exception{
 		WebClient client = new WebClient();
 		client.getOptions().setJavaScriptEnabled(false);
 		client.getOptions().setCssEnabled(false);
@@ -38,7 +40,12 @@ public class TournamentsRetriever {
 		JSONParser parser = new JSONParser();
 		Object obj = parser.parse(json);
 		JSONObject jsonObj = (JSONObject) obj;
-		JSONArray array = (JSONArray) jsonObj.get("2014-05-23-00");
+		return jsonObj;
+	}
+	public static void main(String args[]) throws Exception {
+
+		JSONObject jsonObj = getTournamentsList("1400709600");
+		JSONArray array = (JSONArray) jsonObj.get("2014-05-22-05");
 		Iterator it = array.iterator();
 		while (it.hasNext()) {
 			JSONObject temp = (JSONObject) it.next();

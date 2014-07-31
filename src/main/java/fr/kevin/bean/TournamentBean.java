@@ -1,4 +1,4 @@
-package fr.kevin;
+package fr.kevin.bean;
 
 import com.sun.corba.se.spi.ior.ObjectId;
 

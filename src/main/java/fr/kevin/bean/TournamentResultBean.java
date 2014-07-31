@@ -1,4 +1,4 @@
-package fr.kevin;
+package fr.kevin.bean;
 
 
 public class TournamentResultBean {
