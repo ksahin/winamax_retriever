@@ -1,7 +1,11 @@
 package fr.kevin;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.commons.io.FileUtils;
+import org.json.simple.JSONObject;
 
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
@@ -30,14 +34,22 @@ public class TournamentResultRetriever {
 		return resultList;
 	}
 	public static void main(String args[]) throws Exception {
-
-		List<TournamentResultBean> listResult = getTournementResult(82915467);
-		for(TournamentResultBean res : listResult){
-			System.out.println("Id du tournois : "+ res.getTournamentId());
-			System.out.println("Pseudo joueur : "+ res.getPseudoPlayer());
-			System.out.println("Gain  "+ res.getAmountWon());
-			System.out.println("Rank : "+ res.getRank());
+		String startDate = "2014-07-10";
+		JSONObject jsonObj = TournamentsRetriever.getTournamentsList(Utils.dateToUnixTimeStamp(startDate));
+		ArrayList<String> tournamentsId = TournamentsRetriever.getTournamentsIdList(jsonObj, startDate);
+		StringBuffer sbf = new StringBuffer();
+		for(String idTournament : tournamentsId){
+			List<TournamentResultBean> listResult = getTournementResult(Integer.valueOf(idTournament));
+			for(TournamentResultBean res : listResult){
+				sbf.append("Id du tournois : "+ res.getTournamentId()+"\n");
+				sbf.append("Pseudo joueur : "+ res.getPseudoPlayer()+"\n");
+				sbf.append("Gain  "+ res.getAmountWon()+"\n");
+				sbf.append("Rank : "+ res.getRank()+"\n");
+				System.out.println("Id du tournois : "+ res.getTournamentId());
+			}
 		}
+		FileUtils.writeStringToFile(new File("Resultat_Tournois"), sbf.toString());
+
 		
 	}
 }
