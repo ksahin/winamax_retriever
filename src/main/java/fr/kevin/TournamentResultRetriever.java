@@ -25,8 +25,8 @@ public class TournamentResultRetriever {
 		client.getOptions().setCssEnabled(false);
 		HtmlPage page = client.getPage("https://www.winamax.fr/poker/tournament.php?ID="+tournamentId);
 		Random rand = new Random();
-		int min = 3000;
-		int max = 6000;
+		int min = 8000;
+		int max = 20000;
 		int randomNum = rand.nextInt((max - min) + 1) + min;
 		Thread.sleep(randomNum);
 		HtmlTable table = page.getFirstByXPath("//table[@class='ranking']");
@@ -46,7 +46,9 @@ public class TournamentResultRetriever {
 		JSONObject jsonObj = TournamentsRetriever.getTournamentsList(Utils.dateToUnixTimeStamp(startDate));
 		ArrayList<String> tournamentsId = TournamentsRetriever.getTournamentsIdList(jsonObj, startDate);
 		StringBuffer sbf = new StringBuffer();
+		int nbTournoisParse = 1;
 		for(String idTournament : tournamentsId){
+			
 			List<TournamentResultBean> listResult = getTournementResult(Integer.valueOf(idTournament));
 			for(TournamentResultBean res : listResult){
 				sbf.append("Id du tournois : "+ res.getTournamentId()+"\n");
@@ -58,6 +60,9 @@ public class TournamentResultRetriever {
 				System.out.println("Gain  "+ res.getAmountWon());
 				System.out.println("Rank : "+ res.getRank());
 			}
+			nbTournoisParse++;
+			System.out.println("--------------------------Nombre de tournois parsé pour l'instant : "+nbTournoisParse+"/"+tournamentsId.size());
+
 		}
 		FileUtils.writeStringToFile(new File("Resultat_Tournois"), sbf.toString());
 
