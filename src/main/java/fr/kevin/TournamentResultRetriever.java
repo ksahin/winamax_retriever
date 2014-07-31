@@ -19,6 +19,8 @@ public class TournamentResultRetriever {
 	
 	public static List<TournamentResultBean> getTournementResult(int tournamentId) throws Exception{
 		WebClient client = new WebClient();
+		client.addRequestHeader("User-Agent", "Mozilla/5.0 (X11; Linux x86_64; rv:24.0) Gecko/20140610 Firefox/24.0 Iceweasel/24.6.0");
+	//	client.addRequestHeader(name, value);
 		client.getOptions().setJavaScriptEnabled(false);
 		client.getOptions().setCssEnabled(false);
 		HtmlPage page = client.getPage("https://www.winamax.fr/poker/tournament.php?ID="+tournamentId);
