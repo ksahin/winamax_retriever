@@ -3,6 +3,7 @@ package fr.kevin;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.apache.commons.io.FileUtils;
 import org.json.simple.JSONObject;
@@ -21,6 +22,11 @@ public class TournamentResultRetriever {
 		client.getOptions().setJavaScriptEnabled(false);
 		client.getOptions().setCssEnabled(false);
 		HtmlPage page = client.getPage("https://www.winamax.fr/poker/tournament.php?ID="+tournamentId);
+		Random rand = new Random();
+		int min = 3000;
+		int max = 6000;
+		int randomNum = rand.nextInt((max - min) + 1) + min;
+		Thread.sleep(randomNum);
 		HtmlTable table = page.getFirstByXPath("//table[@class='ranking']");
 		List<TournamentResultBean> resultList = new ArrayList<TournamentResultBean>();
 		for(HtmlTableRow row : table.getBodies().get(0).getRows()){
@@ -46,6 +52,9 @@ public class TournamentResultRetriever {
 				sbf.append("Gain  "+ res.getAmountWon()+"\n");
 				sbf.append("Rank : "+ res.getRank()+"\n");
 				System.out.println("Id du tournois : "+ res.getTournamentId());
+				System.out.println("Pseudo joueur : "+ res.getPseudoPlayer());
+				System.out.println("Gain  "+ res.getAmountWon());
+				System.out.println("Rank : "+ res.getRank());
 			}
 		}
 		FileUtils.writeStringToFile(new File("Resultat_Tournois"), sbf.toString());
