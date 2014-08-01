@@ -19,14 +19,14 @@ public class TournamentResultRetriever {
 	
 	public static List<TournamentResultBean> getTournementResult(int tournamentId) throws Exception{
 		WebClient client = new WebClient();
-		client.addRequestHeader("User-Agent", "Mozilla/5.0 (X11; Linux x86_64; rv:24.0) Gecko/20140610 Firefox/24.0 Iceweasel/24.6.0");
-	//	client.addRequestHeader(name, value);
+		client.addRequestHeader("User-Agent", "Mozilla/5.0 (X11; U; Linux x86_64; en-US) AppleWebKit/532.0 (KHTML, like Gecko) Chrome/4.0.202.0 Safari/532.0");
+		client.addRequestHeader("Referer", "https://www.winamax.fr/les-tournois_planning"); 
 		client.getOptions().setJavaScriptEnabled(false);
 		client.getOptions().setCssEnabled(false);
 		HtmlPage page = client.getPage("https://www.winamax.fr/poker/tournament.php?ID="+tournamentId);
 		Random rand = new Random();
-		int min = 8000;
-		int max = 20000;
+		int min = 5000;
+		int max = 10000;
 		int randomNum = rand.nextInt((max - min) + 1) + min;
 		Thread.sleep(randomNum);
 		HtmlTable table = page.getFirstByXPath("//table[@class='ranking']");
@@ -48,7 +48,6 @@ public class TournamentResultRetriever {
 		StringBuffer sbf = new StringBuffer();
 		int nbTournoisParse = 1;
 		for(String idTournament : tournamentsId){
-			
 			List<TournamentResultBean> listResult = getTournementResult(Integer.valueOf(idTournament));
 			for(TournamentResultBean res : listResult){
 				sbf.append("Id du tournois : "+ res.getTournamentId()+"\n");
